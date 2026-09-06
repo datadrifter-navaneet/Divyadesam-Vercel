@@ -62,23 +62,6 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><path d="M12 2a5 5 0 0 0-5 5v2a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5Z"/><path d="M8 13v2a4 4 0 0 0 8 0v-2"/><path d="M12 19v3"/><path d="M8 22h8"/></svg>
                     Ask the Temple Planner
                 </h2>
-                <button onclick="togglePlannerSettings()" id="plannerSettingsBtn" class="text-xs text-gray-500 hover:text-amber-700 font-medium flex items-center gap-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
-                    API Key
-                </button>
-            </div>
-
-            <!-- Settings Panel (hidden by default) -->
-            <div id="plannerSettings" class="hidden mb-4 bg-amber-50 border border-amber-100 rounded-xl p-4">
-                <label class="block text-xs font-semibold text-amber-800 mb-1">Groq API Key (free)</label>
-                <div class="flex gap-2">
-                    <input type="password" id="groqApiKeyInput" placeholder="gsk_..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
-                    <button onclick="saveGroqApiKey()" class="bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">Save</button>
-                </div>
-                <p class="text-xs text-gray-500 mt-2 leading-relaxed">
-                    Get a free key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" class="text-amber-700 underline">console.groq.com/keys</a>.
-                    The key is stored only in this browser (localStorage) and sent straight from your browser to Groq. Since this is a client-side app, anyone inspecting network requests on this page could see it — don't reuse a key you care about elsewhere, and consider setting a spend/rate limit on it in the Groq console.
-                </p>
             </div>
 
             <p class="text-sm text-gray-500 mb-3">Ask things like <span class="italic">"I have 5 hours at Madurai Junction, which temples can I cover?"</span> or <span class="italic">"Where can I eat near Srirangam temple?"</span></p>
@@ -639,28 +622,8 @@
         // from their browser to Groq — nothing passes through any
         // server of ours.
         // ============================================================
-        const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-        const GROQ_MODEL = 'llama-3.3-70b-versatile';
-        const GROQ_KEY_STORAGE = 'divyaDesamGroqKey';
-        let plannerMessages = []; // running {role, content} history sent to Groq
-
-        function getGroqApiKey() {
-            return localStorage.getItem(GROQ_KEY_STORAGE) || '';
-        }
-
-        function saveGroqApiKey() {
-            const field = document.getElementById('groqApiKeyInput');
-            const val = field.value.trim();
-            if (!val) return;
-            localStorage.setItem(GROQ_KEY_STORAGE, val);
-            field.value = '';
-            field.placeholder = 'Key saved ✓ (hidden)';
-            appendPlannerNote('API key saved in this browser.');
-        }
-
-        function togglePlannerSettings() {
-            document.getElementById('plannerSettings').classList.toggle('hidden');
-        }
+        const PLANNER_API_URL = '/api/planner';
+        let plannerMessages = []; // running {role, content} history sent to the proxy
 
         function escapeHtml(str) {
             const div = document.createElement('div');
@@ -738,12 +701,6 @@
             appendChatBubble('user', escapeHtml(query));
             input.value = '';
 
-            const apiKey = getGroqApiKey();
-            if (!apiKey) {
-                appendChatBubble('assistant', 'Add a free Groq API key first — tap "API Key" above, paste it, and hit Save. Get one at <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" class="underline text-amber-700">console.groq.com/keys</a>.');
-                return;
-            }
-
             const askBtn = document.getElementById('plannerAskBtn');
             askBtn.disabled = true;
             const loadingBubble = appendChatBubble('assistant', '<span class="inline-flex items-center gap-2"><span class="spinner" style="width:14px;height:14px;border-width:2px;"></span> Thinking...</span>');
@@ -767,16 +724,12 @@ ${buildTempleContext()}`;
             }
 
             try {
-                const response = await fetch(GROQ_API_URL, {
+                const response = await fetch(PLANNER_API_URL, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
+                        'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        model: GROQ_MODEL,
-                        temperature: 0.4,
-                        max_tokens: 700,
                         messages: [
                             { role: 'system', content: systemPrompt },
                             ...plannerMessages
@@ -785,11 +738,10 @@ ${buildTempleContext()}`;
                 });
 
                 if (!response.ok) {
-                    const errBody = await response.text();
+                    const errBody = await response.json().catch(() => ({}));
                     let hint = '';
-                    if (response.status === 401) hint = ' Your API key looks invalid — check it under "API Key" above.';
-                    if (response.status === 429) hint = ' You have hit Groq\'s free-tier rate limit — wait a bit and try again.';
-                    throw new Error(`Groq API error (${response.status}).${hint}`);
+                    if (response.status === 429) hint = ' The planner has hit its rate limit — wait a bit and try again.';
+                    throw new Error(`${errBody.error || 'Planner request failed'} (${response.status}).${hint}`);
                 }
 
                 const data = await response.json();
@@ -818,13 +770,6 @@ ${buildTempleContext()}`;
                 askBtn.disabled = false;
             }
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            if (getGroqApiKey()) {
-                const field = document.getElementById('groqApiKeyInput');
-                if (field) field.placeholder = 'Key saved ✓ (hidden)';
-            }
-        });
     </script>
 </body>
 </html>
