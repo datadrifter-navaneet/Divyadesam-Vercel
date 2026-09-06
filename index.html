@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Divya Desam Finder</title>
-    <meta name="google-site-verification" content="JSMjp0-WmxLV0UtWr2jZaowzdAaaejm33tUFrI7H3Pk" />
+    <meta name="google-site-verification" content="JSMjp0-WmxLV0UtWr2jZaowzdAaaejm33tUFrI7H3Pk">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         html { scroll-behavior: smooth; }
@@ -23,36 +23,32 @@
     </style>
 </head>
 <body class="bg-amber-50 text-gray-800 font-sans min-h-screen pb-12">
-
     <div class="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8">
+
         <!-- Header -->
         <header class="text-center mb-8 mt-4">
-           <h1 class="text-3xl sm:text-4xl font-bold text-amber-800 mb-2 flex items-center justify-center gap-2">
-    Divya Desam Finder
-</h1>
-            <p class="text-amber-700 font-medium"> <b><i>Created by Navaneet</i></b> <br> <br>  <strong>Find sacred shrines near you (within 150km)</strong> <br><br> <i>NOTE:- This application may occasionally encounter errors. Users are advised to proceed at their own discretion.</i></p>
+            <h1 class="text-3xl sm:text-4xl font-bold text-amber-800 mb-2 flex items-center justify-center gap-2">Divya Desam Finder</h1>
+            <p class="text-amber-700 font-medium">
+                <b>Created by Navaneeti</b><br><br>
+                <strong>Find sacred shrines near you within 150km</strong><br><br>
+                <i>NOTE- This application may occasionally encounter errors. Users are advised to proceed at their own discretion.</i>
+            </p>
         </header>
 
         <!-- Search Section -->
         <div class="bg-white rounded-2xl shadow-sm border border-amber-100 p-5 sm:p-6 mb-8">
             <div class="flex flex-col sm:flex-row gap-3">
-                <input type="text" id="locationInput" placeholder="Enter your city (e.g., Madurai)" 
-                    class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-gray-50 text-base"
-                    onkeypress="if(event.key === 'Enter') handleSearch()">
-                
-                <button onclick="handleSearch()" id="searchBtn" 
-                    class="bg-amber-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-amber-700 transition shadow-sm flex justify-center items-center">
+                <input type="text" id="locationInput" placeholder="Enter your city e.g., Madurai" class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-gray-50 text-base" onkeypress="if(event.key === 'Enter') handleSearch()">
+                <button onclick="handleSearch()" id="searchBtn" class="bg-amber-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-amber-700 transition shadow-sm flex justify-center items-center">
                     Search
                 </button>
-                
-                <button onclick="getUserLocation()" id="locationBtn" 
-                    class="bg-white text-gray-700 px-5 py-3 rounded-xl font-medium border border-gray-300 hover:bg-gray-50 transition flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
+                <button onclick="getUserLocation()" id="locationBtn" class="bg-white text-gray-700 px-5 py-3 rounded-xl font-medium border border-gray-300 hover:bg-gray-50 transition flex items-center justify-center gap-2 shadow-sm whitespace-nowrap">
                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
                     Use My Location
                 </button>
             </div>
-            
-            <!-- Status & Loading -->
+
+            <!-- Status Loading -->
             <div id="statusContainer" class="mt-4 flex flex-col items-center justify-center hidden h-10">
                 <div id="loadingSpinner" class="spinner hidden"></div>
                 <p id="statusMessage" class="text-sm font-medium mt-2 text-amber-700"></p>
@@ -64,7 +60,6 @@
             <h2 class="text-xl font-bold text-gray-800" id="resultsTitle">Nearby Temples</h2>
             <span class="text-sm text-gray-500 font-medium bg-amber-100 px-3 py-1 rounded-full" id="resultsCount">0 found</span>
         </div>
-        
         <div id="resultsContainer" class="space-y-4">
             <!-- Empty state -->
             <div class="text-center py-12 bg-white rounded-2xl border border-dashed border-gray-300">
@@ -131,8 +126,8 @@
             { id: 49, name: "Tirunilaathingal Tundam", location: "Kanchipuram, TN", description: "Small shrine in Ekambareswarar temple.", lat: 12.8470, lng: 79.7000, group: "Thondai Naattu" },
             { id: 50, name: "Tiru Ooragam", location: "Kanchipuram, TN", description: "Ulagalanda Perumal temple. Lord as Trivikrama.", lat: 12.8394, lng: 79.7056, group: "Thondai Naattu" },
             { id: 51, name: "Tiruvegka", location: "Kanchipuram, TN", description: "Lord as Sonnavannam Seida Perumal in unique reclining posture.", lat: 12.8250, lng: 79.7120, group: "Thondai Naattu" },
-            { id: 52, name: "Tirukkarakam", location: "Kanchipuram, TN", description: "Lord as Karunakara Perumal. Shrine in Ulagalanda Perumal temple.", lat: 12.8394, lng: 79.7056, group: "Thondai Naattu" },
-            { id: 53, name: "Tirukaarvanam", location: "Kanchipuram, TN", description: "Lord as Kalvar. Shrine in Ulagalanda Perumal temple.", lat: 12.8394, lng: 79.7056, group: "Thondai Naattu" },
+            { id: 52, name: "Tirukkarakam", location: "Kanchipuram, TN", description: "Lord as Karunakara Perumal. Shrine in Ulagalantha Perumal temple.", lat: 12.8394, lng: 79.7056, group: "Thondai Naattu" },
+            { id: 53, name: "Tirukaarvanam", location: "Kanchipuram, TN", description: "Lord as Kalvar. Shrine in Ulagalantha Perumal temple.", lat: 12.8394, lng: 79.7056, group: "Thondai Naattu" },
             { id: 54, name: "Tirukkalvanoor", location: "Kanchipuram, TN", description: "Lord as Aadi Varaha. Shrine in Kamakshi Amman temple.", lat: 12.8410, lng: 79.7030, group: "Thondai Naattu" },
             { id: 55, name: "Tiruppavalavannam", location: "Kanchipuram, TN", description: "Pachai Vanna and Pavala Vanna shrines.", lat: 12.8450, lng: 79.7080, group: "Thondai Naattu" },
             { id: 56, name: "Parameswara Vinnagaram", location: "Kanchipuram, TN", description: "Vaikunta Natha Perumal temple. Three-tiered vimanam.", lat: 12.8370, lng: 79.7100, group: "Thondai Naattu" },
@@ -194,20 +189,139 @@
             { id: 108, name: "Paramapadham", location: "Celestial World", description: "Ultimate spiritual abode of Lord Vishnu.", lat: 0, lng: 0, group: "Vinnulagam" }
         ];
 
+        // ============================================================
+        // NEW: Temple contact details (keyed by temple id above)
+        // type: "office" = HR&CE/temple office, "bhattar" = priest direct,
+        //       "shared" = managed via parent temple, "trust" = independent
+        //       temple board/trust, "none" = no published number,
+        //       "celestial" = not a physical temple
+        // verified: false = found only in community-compiled directories
+        // ============================================================
+        const templeContacts = {
+            1:  { type: "office", verified: true, phone: "0431-2432246, +91 94864 82246 (Yatri Nivas)", note: "Sri Ranganathaswamy Temple Executive Officer office; email jceotry_25700.hrce@tn.gov.in" },
+            2:  { type: "office", verified: true, phone: "0431-2762446, +91 94431 88716" },
+            3:  { type: "office", verified: true, phone: "0431-2591466 (EO), 0431-2591405" },
+            4:  { type: "office", verified: true, phone: "0431-2562243", bhattar: "Purushothaman Bhattar 86676 99799 / 90927 62000, Achuthan Bhattar 95242 96292" },
+            5:  { type: "office", verified: true, phone: "0431-6590672", bhattar: "Aravamudhan/Varadaraja Bhattar 90034 69591" },
+            6:  { type: "office", verified: true, phone: "04362-281488, 04362-281460, +91 99524 68956" },
+            7:  { type: "bhattar", verified: true, phone: "+91 93446 08150" },
+            8:  { type: "office", verified: true, phone: "+91 93443 03803, +91 93452 67501", bhattar: "Venkatesa Bhattar 04374-244279" },
+            9:  { type: "office", verified: true, phone: "04374-223434" },
+            10: { type: "bhattar", verified: true, phone: "+91 94435 25365 (Gopal Bhattar)" },
+            11: { type: "office", verified: true, phone: "0435-2000503", bhattar: "Seshadri Bhattar (office line), Adhanur Balu 96592 38848" },
+            12: { type: "office", verified: true, phone: "0435-2430349, 0435-2433692" },
+            13: { type: "office", verified: true, phone: "0435-2463385, 0435-2463685", bhattar: "Kannan Bhattar 94865 68159, S. Sridharan Bhattachariar 94860 58667" },
+            14: { type: "office", verified: true, phone: "0435-2467017, +91 94435 97388" },
+            15: { type: "office", verified: true, phone: "0435-2468078, 0435-2468001, +91 94441 04374" },
+            16: { type: "office", verified: true, phone: "04366-278288, +91 98658 34676", bhattar: "Pakshiraja Bhattar 99437 02989" },
+            17: { type: "office", verified: true, phone: "04366-270557, 04366-270718, +91 99426 56580", note: "EO office: 04366-299264" },
+            18: { type: "office", verified: true, phone: "04365-245350" },
+            19: { type: "office", verified: true, phone: "04365-221374", bhattar: "Sriram Bhattachariar 94422 13741" },
+            20: { type: "office", verified: true, phone: "04362-223384, +91 89402 12119, +91 99521 14758" },
+            21: { type: "office", verified: true, phone: "0435-2417575", bhattar: "Prabhakara Bhattacharya 98430 95904 / 94437 71400" },
+            22: { type: "office", verified: true, phone: "0435-2450118, +91 94433 96212" },
+            23: { type: "office", verified: true, phone: "04364-237952" },
+            24: { type: "office", verified: true, phone: "04366-233041, 04366-233826" },
+            25: { type: "bhattar", verified: true, phone: "+91 99947 29773", bhattar: "Varadharajan Bhattar 99652 73712" },
+            26: { type: "office", verified: true, phone: "04364-223330", bhattar: "Sridhar Bhattar 98437 31595 / 95856 67502" },
+            27: { type: "bhattar", verified: true, phone: "+91 97878 53732" },
+            28: { type: "office", verified: true, phone: "04364-270207", bhattar: "Badri Narayana Bhattar 94424 19989" },
+            29: { type: "shared", verified: true, phone: "04364-266534", note: "All 11 Nangur Divya Desams coordinated by Madhava Bhattar, Annan Perumal Koil: 94898 56554 / 94436 79303" },
+            30: { type: "shared", verified: true, phone: "04364-266534", note: "Nangur coordinator Madhava Bhattar: 94898 56554 / 94436 79303" },
+            31: { type: "shared", verified: true, phone: "04364-266534", note: "Nangur coordinator Madhava Bhattar: 94898 56554 / 94436 79303" },
+            32: { type: "shared", verified: true, phone: "04364-266534", note: "Nangur coordinator Madhava Bhattar: 94898 56554 / 94436 79303" },
+            33: { type: "shared", verified: true, phone: "04364-266534", note: "Nangur coordinator Madhava Bhattar: 94898 56554 / 94436 79303" },
+            34: { type: "bhattar", verified: true, phone: "04364-275699", bhattar: "Padmanabha Bhattar 94433 72567" },
+            35: { type: "bhattar", verified: true, phone: "+91 97878 53732, +91 98652 81801, 04364-266542" },
+            36: { type: "bhattar", verified: true, phone: "04364-275689" },
+            37: { type: "shared", verified: true, phone: "04364-266534", note: "Nangur coordinator Madhava Bhattar: 94898 56554 / 94436 79303" },
+            38: { type: "shared", verified: true, phone: "04364-266534", note: "Nangur coordinator Madhava Bhattar: 94898 56554 / 94436 79303" },
+            39: { type: "bhattar", verified: true, phone: "+91 90956 24150, 04364-275478", bhattar: "Lakshmana Bhattar" },
+            40: { type: "office", verified: true, phone: "04144-222552, +91 98940 69422" },
+            41: { type: "office", verified: true, phone: "04142-287515" },
+            42: { type: "office", verified: true, phone: "+91 94862 79990" },
+            43: { type: "office", verified: true, phone: "044-27269773, +91 94439 90773" },
+            44: { type: "none", verified: true, phone: "", note: "No published number. Enquire via Varadaraja Perumal temple EO: 044-27269773" },
+            45: { type: "none", verified: true, phone: "", note: "No published number. Enquire via Varadaraja Perumal temple EO: 044-27269773" },
+            46: { type: "office", verified: false, phone: "+91 96291 82520", note: "Number from community-compiled directory — verify by call" },
+            47: { type: "shared", verified: true, phone: "044-27232320", bhattar: "Vijayaraghavan Bhattar 94435 97107", note: "Shrine inside Ulagalantha Perumal temple" },
+            48: { type: "none", verified: true, phone: "", note: "No published number. Enquire via Varadaraja Perumal temple EO: 044-27269773" },
+            49: { type: "shared", verified: true, phone: "", note: "Shrine inside Ekambareswarar temple — contact temple office, Kanchipuram" },
+            50: { type: "office", verified: true, phone: "044-27232320", bhattar: "Vijayaraghavan Bhattar 94435 97107, Ragothaman Bhattar 94425 53820" },
+            51: { type: "none", verified: true, phone: "", note: "No published number. Enquire via Varadaraja Perumal temple EO: 044-27269773" },
+            52: { type: "shared", verified: true, phone: "044-27232320", note: "Shrine inside Ulagalantha Perumal temple" },
+            53: { type: "shared", verified: true, phone: "044-27232320", note: "Shrine inside Ulagalantha Perumal temple" },
+            54: { type: "shared", verified: true, phone: "", note: "Shrine inside Kamakshi Amman temple — contact temple office, Kanchipuram" },
+            55: { type: "office", verified: true, phone: "044-27229540" },
+            56: { type: "office", verified: true, phone: "044-27235273, +91 99444 64383" },
+            57: { type: "office", verified: true, phone: "044-27246501", bhattar: "Trust trustee 94452 14825" },
+            58: { type: "office", verified: true, phone: "044-26390434, 044-55173417, +91 98401 92735" },
+            59: { type: "office", verified: true, phone: "044-27660378, +91 97894 19330" },
+            60: { type: "office", verified: true, phone: "044-28442462, 044-28442449 (EO office)" },
+            61: { type: "office", verified: true, phone: "044-22385484", bhattar: "98405 95374, 94440 20820" },
+            62: { type: "office", verified: true, phone: "+91 73588 56193 (HR&CE), +91 98405 99310, +91 98409 36927" },
+            63: { type: "office", verified: true, phone: "044-27443245, +91 94440 81142" },
+            64: { type: "office", verified: true, phone: "04172-260255 (office), 04172-200368 (hill temple)", bhattar: "Priest 94442 74589 / 99443 30705" },
+            65: { type: "trust", verified: true, phone: "05278-292000, +91 80095 22111, toll-free 1860-180-1992", note: "Shri Ram Janmabhoomi Teerth Kshetra Trust" },
+            66: { type: "trust", verified: true, phone: "+91 07275 09765", note: "Naimishnath Devaraja temple" },
+            67: { type: "bhattar", verified: true, phone: "+91 81268 02845, +91 95688 05200", note: "Narsingh Mandir (Joshimath) priests — call before visiting" },
+            68: { type: "trust", verified: true, phone: "+91 96397 91100", note: "Raghunathji temple, Devprayag" },
+            69: { type: "trust", verified: true, phone: "01381-222010 (Badrinath office), +91 89790 01008 (pilgrim helpline), 0135-2741600 (HQ Dehradun)", note: "Shri Badarinath Kedarnath Temple Committee" },
+            70: { type: "none", verified: true, phone: "", note: "No official temple phone published. Nepal Tourism helpline: 1144" },
+            71: { type: "trust", verified: true, phone: "0565-2423888, +91 94501 75006", note: "Shri Krishna Janmabhoomi Teerth" },
+            72: { type: "none", verified: true, phone: "", note: "No published shrine number. Use Mathura Janmasthan office: 94501 75006" },
+            73: { type: "trust", verified: true, phone: "02892-234080", note: "Dwarkadhish Jagat Mandir office" },
+            74: { type: "trust", verified: true, phone: "08519-252024 / 252025", bhattar: "EO Ramanuja Acharya 94403 06907", note: "Sri Lakshmi Narasimha Swami Devasthanam, Ahobilam" },
+            75: { type: "trust", verified: true, phone: "0877-2233333, 0877-2277777, toll-free 1800-425-4141", note: "TTD call centre (24x7); WhatsApp 93993 99399" },
+            76: { type: "trust", verified: true, phone: "0494-2603747 (Devaswom office), +91 94466 31453" },
+            77: { type: "none", verified: true, phone: "", note: "No published number (small shrine near Shoranur)" },
+            78: { type: "trust", verified: true, phone: "0484-2426570, 0484-2367334" },
+            79: { type: "trust", verified: true, phone: "0484-2470374, 0484-2473996" },
+            80: { type: "trust", verified: true, phone: "0469-2700191" },
+            81: { type: "none", verified: true, phone: "", note: "No published number (via Travancore Devaswom Board)" },
+            82: { type: "trust", verified: true, phone: "+91 94460 50829" },
+            83: { type: "trust", verified: true, phone: "0479-2464900" },
+            84: { type: "trust", verified: true, phone: "0468-2212170, +91 80784 73010" },
+            85: { type: "none", verified: true, phone: "", note: "No published number (near Chengannur)" },
+            86: { type: "trust", verified: true, phone: "0471-2464606, 0471-2450233 (Executive Office)", note: "Accommodation: 0471-2472086" },
+            87: { type: "trust", verified: true, phone: "04652-241270, +91 94425 77047" },
+            88: { type: "none", verified: true, phone: "", note: "No published number. Nearest admin contact: Thiruvattar temple 04652-241270" },
+            89: { type: "office", verified: true, phone: "04635-265289" },
+            90: { type: "office", verified: true, phone: "04635-250119" },
+            91: { type: "office", verified: true, phone: "04630-256476", bhattar: "Srinivasa Bhattar 98656 28681, Vaikuntanathan Bhattar 99521 62359" },
+            92: { type: "shared", verified: true, phone: "04630-256476", note: "Administered with Srivaikuntam temple (Navatirupati circuit)" },
+            93: { type: "shared", verified: true, phone: "04630-256476", note: "Administered with Srivaikuntam temple (Navatirupati circuit)" },
+            94: { type: "office", verified: false, phone: "+91 87547 02546", note: "Number from community-compiled directory — verify by call" },
+            95: { type: "office", verified: false, phone: "+91 94436 19222", note: "Number from community-compiled directory — verify by call" },
+            96: { type: "office", verified: true, phone: "04639-291507 (HR&CE)" },
+            97: { type: "office", verified: false, phone: "04639-273902", note: "Number from community-compiled directory — verify by call" },
+            98: { type: "office", verified: false, phone: "04364-256927, +91 94433 72567", note: "Dinamalar listing — verify by call" },
+            99: { type: "office", verified: true, phone: "04563-260254" },
+            100: { type: "office", verified: true, phone: "04652-232801", bhattar: "Dr. Vasudeva Bhattachariar 99422 02668, +91 94426 65443" },
+            101: { type: "office", verified: true, phone: "0452-2338542, 0452-2334015", bhattar: "Kesava Bhattar 99440 81037" },
+            102: { type: "office", verified: true, phone: "0452-2470228" },
+            103: { type: "office", verified: true, phone: "0452-2423227 (HR&CE), +91 98420 24866", note: "Email: kalamegaperumaltemple@gmail.com" },
+            104: { type: "office", verified: true, phone: "04577-261122, 04577-261103", bhattar: "Madhavan Bhattar 94433 41163" },
+            105: { type: "office", verified: true, phone: "04567-254527, +91 94866 94035", note: "HR&CE: 87784 47015" },
+            106: { type: "office", verified: false, phone: "04322-221084", note: "Number from community-compiled directory — verify by call" },
+            107: { type: "celestial", verified: true, phone: "", note: "Celestial abode (Ksheerabdi) — not a physical temple" },
+            108: { type: "celestial", verified: true, phone: "", note: "Paramapadham — not a physical temple" }
+        };
+
         function showStatus(message, isLoading = false, isError = false) {
             const container = document.getElementById('statusContainer');
             const spinner = document.getElementById('loadingSpinner');
             const msgEl = document.getElementById('statusMessage');
-            
+
             container.classList.remove('hidden');
             msgEl.textContent = message;
-            
+
             if (isLoading) {
                 spinner.classList.remove('hidden');
                 msgEl.className = 'text-sm font-medium mt-2 text-amber-600';
             } else {
                 spinner.classList.add('hidden');
-                msgEl.className = `text-sm font-medium mt-2 ${isError ? 'text-red-600' : 'text-green-600'}`;
+                msgEl.className = 'text-sm font-medium mt-2 ' + (isError ? 'text-red-600' : 'text-green-600');
             }
         }
 
@@ -216,21 +330,20 @@
         }
 
         function calculateDistance(lat1, lon1, lat2, lon2) {
-            const R = 6371;
+            const R = 6371; // km
             const dLat = (lat2 - lat1) * Math.PI / 180;
             const dLon = (lon2 - lon1) * Math.PI / 180;
-            const a = 
-                Math.sin(dLat/2) * Math.sin(dLat/2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2); 
-            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon/2) * Math.sin(dLon/2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
             return R * c;
         }
 
+        // Nominatim (OpenStreetMap) — 100% free, no API key needed.
+        // Works on localhost and any hosted server (Vercel, Netlify, etc.)
         async function geocodeLocation(city) {
-            // Nominatim (OpenStreetMap) — 100% free, no API key needed
-            // Works on localhost and any hosted server (Vercel, Netlify, etc.)
-            const url = 'https://nominatim.openstreetmap.org/search?q=' +
-                encodeURIComponent(city) + '&format=json&limit=1&addressdetails=1';
+            const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(city)}&format=json&limit=1&addressdetails=1`;
 
             const response = await fetch(url, {
                 headers: {
@@ -239,7 +352,9 @@
                 }
             });
 
-            if (!response.ok) throw new Error('Network error: ' + response.status);
+            if (!response.ok) {
+                throw new Error(`Network error: ${response.status}`);
+            }
 
             const results = await response.json();
 
@@ -254,56 +369,63 @@
         }
 
         function getUserLocation() {
-            if ("geolocation" in navigator) {
-                showStatus("Retrieving your current location...", true);
-                
+            if ('geolocation' in navigator) {
+                showStatus('Retrieving your current location...', true);
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         const { latitude, longitude } = position.coords;
-                        showStatus("Location found!", false, false);
-                        document.getElementById('locationInput').value = "My Current Location";
-                        processAndDisplayTemples(latitude, longitude, "Your Location");
+                        showStatus('Location found!', false, false);
+                        document.getElementById('locationInput').value = 'My Current Location';
+                        processAndDisplayTemples(latitude, longitude, 'Your Location');
                         setTimeout(hideStatus, 2000);
                     },
                     (error) => {
-                        let msg = "Could not determine your location. ";
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED: msg = "Location permission denied. Please enter your city manually."; break;
-                            case error.POSITION_UNAVAILABLE: msg += "Location information is unavailable."; break;
-                            case error.TIMEOUT: msg += "The location request timed out."; break;
-                            default: msg += "An unknown error occurred.";
+                        let msg = 'Could not determine your location.';
+                        switch (error.code) {
+                            case error.PERMISSION_DENIED:
+                                msg = 'Location permission denied. Please enter your city manually.';
+                                break;
+                            case error.POSITION_UNAVAILABLE:
+                                msg = 'Location information is unavailable.';
+                                break;
+                            case error.TIMEOUT:
+                                msg = 'The location request timed out.';
+                                break;
+                            default:
+                                msg = 'An unknown error occurred.';
                         }
                         showStatus(msg, false, true);
                     },
                     { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
                 );
             } else {
-                showStatus("Geolocation is not supported by your browser.", false, true);
+                showStatus('Geolocation is not supported by your browser.', false, true);
             }
         }
 
         async function handleSearch() {
             const input = document.getElementById('locationInput').value.trim();
+
             if (!input) {
-                showStatus("Please enter a city name.", false, true);
+                showStatus('Please enter a city name.', false, true);
                 return;
             }
 
-            if (input === "My Current Location") {
+            if (input === 'My Current Location') {
                 getUserLocation();
                 return;
             }
 
-            showStatus(`Searching for "${input}"...`, true);
+            showStatus(`Searching for ${input}...`, true);
 
             try {
                 const coords = await geocodeLocation(input);
-                showStatus("Location found! Searching for temples...", true);
+                showStatus('Location found! Searching for temples...', true);
                 processAndDisplayTemples(coords.lat, coords.lng, input);
                 setTimeout(hideStatus, 2000);
             } catch (error) {
-                console.error("Geocoding Error:", error);
-                showStatus("Could not find the location. " + error.message, false, true);
+                console.error('Geocoding Error:', error);
+                showStatus(`Could not find the location. ${error.message}`, false, true);
             }
         }
 
@@ -330,38 +452,36 @@
 
             container.innerHTML = '';
             header.classList.remove('hidden');
-            
+
             if (results.length === 0) {
                 titleLabel.textContent = `Temples near ${locationName}`;
-                countLabel.textContent = "0 found";
-                countLabel.className = "text-sm text-amber-700 font-medium bg-amber-100 px-3 py-1 rounded-full";
-                
+                countLabel.textContent = '0 found';
+                countLabel.className = 'text-sm text-amber-700 font-medium bg-amber-100 px-3 py-1 rounded-full';
                 container.innerHTML = `
                     <div class="text-center py-10 bg-white rounded-2xl shadow-sm border border-amber-100">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-amber-300 mb-4"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mx-auto text-amber-300 mb-4"><path d="M12 2v20"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                         <h3 class="text-lg font-medium text-gray-800 mb-2">No Temples Found</h3>
                         <p class="text-gray-500 max-w-sm mx-auto">There are no Divya Desams within 150km of your location.</p>
-                    </div>
-                `;
+                    </div>`;
                 return;
             }
 
             titleLabel.textContent = `Temples near ${locationName}`;
             countLabel.textContent = `${results.length} found`;
-            countLabel.className = "text-sm text-green-800 font-medium bg-green-100 border border-green-200 px-3 py-1 rounded-full";
+            countLabel.className = 'text-sm text-green-800 font-medium bg-green-100 border border-green-200 px-3 py-1 rounded-full';
 
             results.forEach(temple => {
                 const mapLink = `https://www.google.com/maps/search/?api=1&query=${temple.lat},${temple.lng}`;
                 const distanceStr = temple.distance.toFixed(1);
 
                 const card = document.createElement('div');
-                card.className = "bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition duration-200 flex flex-col sm:flex-row gap-4 justify-between items-start";
-                
+                card.className = 'bg-white p-5 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition duration-200 flex flex-col sm:flex-row gap-4 justify-between items-start';
+
                 card.innerHTML = `
                     <div class="flex-1">
                         <div class="flex items-center gap-2 mb-1">
                             <span class="bg-amber-100 text-amber-800 text-xs px-2 py-0.5 rounded font-semibold tracking-wide uppercase">${temple.group}</span>
-                            <span class="text-xs text-gray-400 font-medium">#${temple.id}</span>
+                            <span class="text-xs text-gray-400 font-medium">${temple.id}</span>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-1">${temple.name}</h3>
                         <div class="flex items-center text-sm text-gray-500 mb-3 gap-1">
@@ -369,22 +489,109 @@
                             ${temple.location}
                         </div>
                         <p class="text-gray-600 text-sm leading-relaxed mb-4 sm:mb-0">${temple.description}</p>
+                        <div data-contact-slot="${temple.id}" class="mt-3"></div>
                     </div>
-                    
                     <div class="flex flex-col items-start sm:items-end w-full sm:w-auto min-w-[120px] gap-3 bg-amber-50 sm:bg-transparent p-4 sm:p-0 rounded-xl">
                         <div class="text-left sm:text-right w-full">
                             <div class="text-2xl font-black text-amber-600">${distanceStr}</div>
                             <div class="text-xs font-semibold text-amber-800 uppercase tracking-wider">Kilometers</div>
                         </div>
-                        <a href="${mapLink}" target="_blank" rel="noopener noreferrer" 
-                           class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
+                        <a href="${mapLink}" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gray-900 hover:bg-gray-800 text-white text-sm font-medium py-2 px-4 rounded-lg transition">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
                             Get Directions
                         </a>
                     </div>
                 `;
+
+                // NEW: inject the contact panel into the slot above
+                const contactSlot = card.querySelector(`[data-contact-slot="${temple.id}"]`);
+                if (contactSlot) {
+                    contactSlot.appendChild(buildContactPanel(temple));
+                }
+
                 container.appendChild(card);
             });
+        }
+
+        // ============================================================
+        // NEW: Contact panel builder (uses templeContacts data)
+        // ============================================================
+        function toTelHref(numStr) {
+            const d = numStr.replace(/[^\d+]/g, '');
+            if (d.startsWith('+')) return d;
+            if (d.length === 10) return '+91' + d;
+            return d;
+        }
+
+        function buildContactPanel(temple) {
+            const c = templeContacts[temple.id];
+            const panel = document.createElement('div');
+            panel.className = 'w-full';
+
+            if (!c || c.type === 'celestial') return panel;
+
+            let bodyHTML = '';
+
+            if (c.phone || c.bhattar) {
+                if (c.phone) {
+                    const firstRaw = c.phone.split(',')[0];
+                    const telHref = toTelHref(firstRaw);
+                    bodyHTML += `
+                        <div class="text-sm text-gray-800 font-semibold mb-1">Temple Contact</div>
+                        <div class="text-sm text-gray-700 leading-relaxed mb-2">${c.phone}</div>
+                        <a href="tel:${telHref}" class="inline-flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            Call Temple
+                        </a>`;
+                }
+                if (c.bhattar) {
+                    const m = c.bhattar.match(/(?:\+91[\s-]?)?[6-9]\d{9}/);
+                    const bTel = m ? (m[0].includes('+') ? m[0].replace(/[\s-]/g, '') : '+91' + m[0].replace(/[\s-]/g, '')) : '';
+                    bodyHTML += `
+                        <div class="text-sm text-gray-800 font-semibold mb-1 mt-2">Bhattar / Archaka</div>
+                        <div class="text-sm text-gray-700 leading-relaxed mb-2">${c.bhattar}</div>
+                        ${bTel ? `<a href="tel:${bTel}" class="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium py-2 px-4 rounded-lg transition">Call Bhattar</a>` : ''}`;
+                }
+                if (c.note) {
+                    bodyHTML += `<div class="text-xs text-gray-500 leading-relaxed mt-2">${c.note}</div>`;
+                }
+                if (c.verified === false) {
+                    bodyHTML += `<div class="text-xs text-orange-600 mt-2 flex items-start gap-1"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mt-0.5 shrink-0"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>Unverified number — please confirm by call before relying on it</div>`;
+                }
+            } else {
+                bodyHTML = `<div class="text-sm text-gray-500 italic">${c.note || 'No contact details available for this temple.'}</div>`;
+            }
+
+            const typeLabels = {
+                office: 'Temple Office (HR&CE)',
+                bhattar: 'Priest Direct',
+                shared: 'Managed via Parent Temple',
+                trust: 'Temple Trust / Board',
+                none: 'No Published Number'
+            };
+            const typeColors = {
+                office: 'bg-amber-100 text-amber-800',
+                bhattar: 'bg-green-100 text-green-800',
+                shared: 'bg-blue-100 text-blue-800',
+                trust: 'bg-purple-100 text-purple-800',
+                none: 'bg-gray-100 text-gray-600'
+            };
+
+            panel.innerHTML = `
+                <details class="w-full bg-amber-50 border border-amber-100 rounded-xl overflow-hidden">
+                    <summary class="cursor-pointer select-none flex items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-amber-800 hover:bg-amber-100 transition">
+                        <span class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            Contact Temple
+                        </span>
+                        <span class="text-xs px-2 py-0.5 rounded font-semibold ${typeColors[c.type] || 'bg-gray-100 text-gray-600'}">${typeLabels[c.type] || c.type}</span>
+                    </summary>
+                    <div class="px-4 pb-4 pt-1 border-t border-amber-100 bg-white">
+                        ${bodyHTML}
+                    </div>
+                </details>`;
+
+            return panel;
         }
     </script>
 </body>
