@@ -55,6 +55,44 @@
             </div>
         </div>
 
+        <!-- AI Temple Planner -->
+        <div class="bg-white rounded-2xl shadow-sm border border-amber-100 p-5 sm:p-6 mb-8">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-lg font-bold text-amber-800 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><path d="M12 2a5 5 0 0 0-5 5v2a5 5 0 0 0 10 0V7a5 5 0 0 0-5-5Z"/><path d="M8 13v2a4 4 0 0 0 8 0v-2"/><path d="M12 19v3"/><path d="M8 22h8"/></svg>
+                    Ask the Temple Planner
+                </h2>
+                <button onclick="togglePlannerSettings()" id="plannerSettingsBtn" class="text-xs text-gray-500 hover:text-amber-700 font-medium flex items-center gap-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>
+                    API Key
+                </button>
+            </div>
+
+            <!-- Settings Panel (hidden by default) -->
+            <div id="plannerSettings" class="hidden mb-4 bg-amber-50 border border-amber-100 rounded-xl p-4">
+                <label class="block text-xs font-semibold text-amber-800 mb-1">Groq API Key (free)</label>
+                <div class="flex gap-2">
+                    <input type="password" id="groqApiKeyInput" placeholder="gsk_..." class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-amber-500">
+                    <button onclick="saveGroqApiKey()" class="bg-amber-600 hover:bg-amber-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">Save</button>
+                </div>
+                <p class="text-xs text-gray-500 mt-2 leading-relaxed">
+                    Get a free key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" class="text-amber-700 underline">console.groq.com/keys</a>.
+                    The key is stored only in this browser (localStorage) and sent straight from your browser to Groq. Since this is a client-side app, anyone inspecting network requests on this page could see it — don't reuse a key you care about elsewhere, and consider setting a spend/rate limit on it in the Groq console.
+                </p>
+            </div>
+
+            <p class="text-sm text-gray-500 mb-3">Ask things like <span class="italic">"I have 5 hours at Madurai Junction, which temples can I cover?"</span> or <span class="italic">"Where can I eat near Srirangam temple?"</span></p>
+
+            <div id="plannerChat" class="space-y-3 mb-4 max-h-96 overflow-y-auto"></div>
+
+            <div class="flex flex-col sm:flex-row gap-3">
+                <input type="text" id="plannerInput" placeholder="e.g. I have 5 hours at Madurai Junction, what can I cover?" class="flex-1 px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 bg-gray-50 text-base" onkeypress="if(event.key === 'Enter') handlePlannerAsk()">
+                <button onclick="handlePlannerAsk()" id="plannerAskBtn" class="bg-amber-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-amber-700 transition shadow-sm flex justify-center items-center gap-2 whitespace-nowrap">
+                    Ask
+                </button>
+            </div>
+        </div>
+
         <!-- Results Section -->
         <div id="resultsHeader" class="hidden mb-4 flex justify-between items-end">
             <h2 class="text-xl font-bold text-gray-800" id="resultsTitle">Nearby Temples</h2>
@@ -593,6 +631,200 @@
 
             return panel;
         }
+
+        // ============================================================
+        // NEW: AI Temple Planner — powered by Groq's free-tier API
+        // (https://console.groq.com). The API key lives only in the
+        // visitor's own browser (localStorage) and is sent directly
+        // from their browser to Groq — nothing passes through any
+        // server of ours.
+        // ============================================================
+        const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+        const GROQ_MODEL = 'llama-3.3-70b-versatile';
+        const GROQ_KEY_STORAGE = 'divyaDesamGroqKey';
+        let plannerMessages = []; // running {role, content} history sent to Groq
+
+        function getGroqApiKey() {
+            return localStorage.getItem(GROQ_KEY_STORAGE) || '';
+        }
+
+        function saveGroqApiKey() {
+            const field = document.getElementById('groqApiKeyInput');
+            const val = field.value.trim();
+            if (!val) return;
+            localStorage.setItem(GROQ_KEY_STORAGE, val);
+            field.value = '';
+            field.placeholder = 'Key saved ✓ (hidden)';
+            appendPlannerNote('API key saved in this browser.');
+        }
+
+        function togglePlannerSettings() {
+            document.getElementById('plannerSettings').classList.toggle('hidden');
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // Compact one-line-per-temple context string for the model.
+        // Skips the two celestial (non-physical) entries.
+        function buildTempleContext() {
+            return temples
+                .filter(t => t.group !== 'Vinnulagam')
+                .map(t => `${t.id}|${t.name}|${t.location}|${t.group}|${t.lat},${t.lng}`)
+                .join('\n');
+        }
+
+        function detectFoodIntent(query) {
+            return /\b(eat|food|restaurant|hotel|lunch|dinner|breakfast|meal|dine|dining|mess|canteen)\b/i.test(query);
+        }
+
+        // Very lightweight heuristic match — looks for a temple name or
+        // location fragment inside the user's question, just enough to
+        // offer a relevant "find restaurants nearby" map link.
+        function detectMentionedTemple(query) {
+            const q = query.toLowerCase();
+            let match = null;
+            for (const t of temples) {
+                const nameToken = t.name.split(/[\s(]+/)[0].toLowerCase();
+                const locToken = t.location.split(',')[0].replace(/^near\s+/i, '').trim().toLowerCase();
+                if (nameToken.length > 3 && q.includes(nameToken)) { match = t; break; }
+                if (!match && locToken.length > 3 && q.includes(locToken)) { match = t; }
+            }
+            return match;
+        }
+
+        function appendChatBubble(role, innerHtml, footerHtml) {
+            const chat = document.getElementById('plannerChat');
+            const wrap = document.createElement('div');
+            if (role === 'user') {
+                wrap.className = 'flex justify-end';
+                wrap.innerHTML = `<div class="bg-amber-600 text-white text-sm px-4 py-2 rounded-2xl rounded-br-sm max-w-[85%]">${innerHtml}</div>`;
+            } else {
+                wrap.className = 'flex justify-start';
+                wrap.innerHTML = `<div class="bg-amber-50 border border-amber-100 text-gray-800 text-sm px-4 py-3 rounded-2xl rounded-bl-sm max-w-[90%] leading-relaxed">${innerHtml}${footerHtml || ''}</div>`;
+            }
+            chat.appendChild(wrap);
+            chat.scrollTop = chat.scrollHeight;
+            return wrap;
+        }
+
+        function appendPlannerNote(text) {
+            const chat = document.getElementById('plannerChat');
+            const el = document.createElement('div');
+            el.className = 'text-center text-xs text-gray-400 italic';
+            el.textContent = text;
+            chat.appendChild(el);
+            chat.scrollTop = chat.scrollHeight;
+        }
+
+        // Escapes the model's reply first, then renders a small subset
+        // of markdown (bold, bullets, line breaks) as HTML.
+        function formatPlannerText(text) {
+            let safe = escapeHtml(text);
+            safe = safe.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            safe = safe.replace(/^- (.*)$/gm, '• $1');
+            safe = safe.replace(/\n/g, '<br>');
+            return safe;
+        }
+
+        async function handlePlannerAsk() {
+            const input = document.getElementById('plannerInput');
+            const query = input.value.trim();
+            if (!query) return;
+
+            appendChatBubble('user', escapeHtml(query));
+            input.value = '';
+
+            const apiKey = getGroqApiKey();
+            if (!apiKey) {
+                appendChatBubble('assistant', 'Add a free Groq API key first — tap "API Key" above, paste it, and hit Save. Get one at <a href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer" class="underline text-amber-700">console.groq.com/keys</a>.');
+                return;
+            }
+
+            const askBtn = document.getElementById('plannerAskBtn');
+            askBtn.disabled = true;
+            const loadingBubble = appendChatBubble('assistant', '<span class="inline-flex items-center gap-2"><span class="spinner" style="width:14px;height:14px;border-width:2px;"></span> Thinking...</span>');
+
+            const systemPrompt = `You are a helpful, concise trip-planning assistant for pilgrims visiting the 108 Divya Desams (Sri Vaishnavite temples) across India.
+You are given a compact list of temples the user may be near, one per line as: id|name|location|region group|latitude,longitude.
+
+Rules:
+1. When asked to plan a visit within a time budget (e.g. "I have 5 hours at X"), suggest a short, realistic, ORDERED itinerary using only temples from the list below. Roughly account for travel time between temples (use the given lat/lng to judge relative distance; assume about 30-45 km/h average local-road speed as a rough estimate) plus about 30-45 minutes for darshan (worship) at each stop. Say clearly these are rough estimates and that travel time and temple opening hours (many close for a few hours at midday) should be double-checked locally.
+2. When asked about food or where to eat near a temple, describe the type of local/regional cuisine and typical vegetarian temple-town food available in that area, and suggest the user search "restaurants near [temple name]" on Google Maps for specific verified options. Do NOT invent specific restaurant names, addresses, prices, or ratings — you do not have reliable live data on them.
+3. If the user's location or the temple they mean isn't in the list or is unclear, ask a brief clarifying question instead of guessing.
+4. If a question is unrelated to Divya Desam temple visits or food near a temple, politely note this planner is focused on that.
+5. Keep replies short and practical — a few sentences or a short bulleted list. Avoid long preambles.
+
+Temple list:
+${buildTempleContext()}`;
+
+            plannerMessages.push({ role: 'user', content: query });
+            if (plannerMessages.length > 16) {
+                plannerMessages = plannerMessages.slice(-16); // keep last ~8 turns of context
+            }
+
+            try {
+                const response = await fetch(GROQ_API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({
+                        model: GROQ_MODEL,
+                        temperature: 0.4,
+                        max_tokens: 700,
+                        messages: [
+                            { role: 'system', content: systemPrompt },
+                            ...plannerMessages
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errBody = await response.text();
+                    let hint = '';
+                    if (response.status === 401) hint = ' Your API key looks invalid — check it under "API Key" above.';
+                    if (response.status === 429) hint = ' You have hit Groq\'s free-tier rate limit — wait a bit and try again.';
+                    throw new Error(`Groq API error (${response.status}).${hint}`);
+                }
+
+                const data = await response.json();
+                const reply = (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content)
+                    ? data.choices[0].message.content
+                    : "Sorry, I couldn't generate a response.";
+
+                plannerMessages.push({ role: 'assistant', content: reply });
+                loadingBubble.remove();
+
+                let footer = '';
+                if (detectFoodIntent(query)) {
+                    const mentioned = detectMentionedTemple(query);
+                    if (mentioned) {
+                        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('restaurants near ' + mentioned.name + ' ' + mentioned.location)}`;
+                        footer = `<div class="mt-2 pt-2 border-t border-amber-100"><a href="${mapsUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-xs font-medium text-amber-700 underline">Find restaurants near ${mentioned.name} on Google Maps →</a></div>`;
+                    }
+                }
+
+                appendChatBubble('assistant', formatPlannerText(reply), footer);
+            } catch (error) {
+                console.error('Planner error:', error);
+                loadingBubble.remove();
+                appendChatBubble('assistant', `Something went wrong: ${escapeHtml(error.message)}`);
+            } finally {
+                askBtn.disabled = false;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (getGroqApiKey()) {
+                const field = document.getElementById('groqApiKeyInput');
+                if (field) field.placeholder = 'Key saved ✓ (hidden)';
+            }
+        });
     </script>
 </body>
 </html>
