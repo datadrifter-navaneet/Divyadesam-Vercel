@@ -8,7 +8,7 @@
 //   GROQ_API_KEY = your key from https://console.groq.com/keys
 
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-const GROQ_MODEL = 'llama-3.3-70b-versatile';
+const GROQ_MODEL = 'openai/gpt-oss-120b';
 
 // Very small in-memory rate limiter. Resets whenever the serverless
 // function cold-starts, so it's a soft speed bump, not a hard guarantee —
